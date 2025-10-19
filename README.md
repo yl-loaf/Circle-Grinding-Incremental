@@ -1,5 +1,5 @@
 # Circle Grinding Incremental
-Macro to auto buy minigames in the periodic table section.  
+Macro to auto buy minigame buttons in the periodic table section.  
 The macro is still in beta testing.  
 Discord link for reporting bugs: https://discord.gg/Y9CHram9  
 Start program: 
