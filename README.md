@@ -8,12 +8,12 @@ Start program:
 2. Press F6 to begin auto-clicking green pixels
 3. Press F6 again to stop
 
-🎯 Basic Controls
+Basic Controls
 
 · F6 = Start/Stop green clicking
 · Esc = E stop (closes everything)
 
-⚙️ Advanced Features (Optional)
+Advanced Features (Optional)
 
 Set Click Boundaries (if you only want to click in a specific area)
 
