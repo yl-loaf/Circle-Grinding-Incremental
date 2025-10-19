@@ -20,3 +20,7 @@ Set Click Boundaries (if you only want to click in a specific area)
 1. F9 = Set top-left corner of your click area
 2. F10 = Set bottom-right corner of your click area
 3. F11 = Reset to full screen
+
+Debug Tools
+
+· F8 = See what color is under your mouse cursor (BGR format)
