@@ -112,7 +112,7 @@ F6:: {
     
     if GreenClickerActive {
         ToolTip("Green Clicker ACTIVE - Color: " . Format("0x{:06X}", SelectedGreenColor) . " - Press F6 to stop", 10, 10)
-        SetTimer(ClickGreenPixels, 20)
+        SetTimer(ClickGreenPixels, 5)
     } else {
         ToolTip()
         SetTimer(ClickGreenPixels, 0)
@@ -191,8 +191,8 @@ ClickGreenPixels() {
         MouseGetPos(&originalX, &originalY)
         
         ; Apply offset 
-        targetX := foundX + ClickOffset + Random(-20, 67)
-        targetY := foundY + ClickOffset + Random(-20, 67)
+        targetX := foundX + ClickOffset + Random(-10, 10)
+        targetY := foundY + ClickOffset + Random(-10, 10)
         
         ; PrevEnt click outside 
         targetX := Min(targetX, A_ScreenWidth - 1)
@@ -202,8 +202,7 @@ ClickGreenPixels() {
         MouseMove(targetX, targetY, 0)
         Click("Left")
         Click("Down")
-        Sleep 500
-        Click("Left")
+        Sleep 10
         
         ; Debug tooltip (shows original and offset positions)
         ToolTip("Found: " foundX "," foundY "`nClicked: " targetX "," targetY, targetX + 10, targetY + 10)
@@ -233,4 +232,20 @@ Esc:: {
     ToolTip("Exiting app...", 100, 100)
     Sleep Random(1500, 3000)
     ExitApp
+}
+
+Tab:: {
+    global AutoClickingTrue
+    global nump
+    AutoClickingTrue := false
+    if AutoClickingTrue {
+        AutoClickingTrue := false
+        nump := false
+    }
+    else{
+        nump := true
+        While nump
+        Click("Left")
+        Sleep 1
+    }
 }
