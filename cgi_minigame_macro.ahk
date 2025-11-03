@@ -15,6 +15,7 @@ BoundaryBottomRightY := A_ScreenHeight
 ClickOffset := 30 ; Pixels to offset diagonally bottom-right
 SelectedGreenColor := 0x003B00  ; Default color
 
+CheckForUpdates()
 tooltip("Macro starting...", 100, 100)
 Sleep Random(1000, 3000)
 tooltip("loading ui...")
@@ -174,6 +175,39 @@ F4:: {
     ToolTip("Offset: " ClickOffset "px", 10, 110)
     SetTimer(() => ToolTip(), 1500)
 }
+
+CheckForUpdates() {
+    ; --- Configure your URLs here ---
+    CurrentVersion := "1.2" ; Your script's current version
+    VersionFileURL := "https://github.com/yl-loaf/Circle-Grinding-Incremental/blob/main/version.txt"
+    NewScriptURL   := "https://github.com/yl-loaf/Circle-Grinding-Incremental/blob/main/cgi_minigame_macro.ahk"
+    
+    try {
+        ; Create an HTTP request object
+        whr := ComObject("WinHttp.WinHttpRequest.5.1")
+        whr.Open("GET", VersionFileURL)
+        whr.Send()
+        whr.WaitForResponse()
+        
+        LatestVersion := Trim(whr.ResponseText)
+        
+        if (CurrentVersion != LatestVersion) {
+            result := MsgBox("A new version v" LatestVersion " is available. Would you like to update?", "Update Available", "Yes/No")
+            if (result = "Yes")
+       {
+    if Download(NewScriptURL, A_ScriptDir "\YourMacro_" LatestVersion ".ahk")
+    {
+        MsgBox("Update downloaded successfully! New file saved as YourMacro_" LatestVersion ".ahk")
+    }
+    else
+    {
+        MsgBox("Download failed!")
+    }
+}
+        }
+    }
+}
+
 
 ClickGreenPixels() {
     global GreenClickerActive, BoundaryTopLeftX, BoundaryTopLeftY, BoundaryBottomRightX, BoundaryBottomRightY, ClickOffset
