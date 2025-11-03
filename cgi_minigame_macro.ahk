@@ -177,8 +177,11 @@ F4:: {
 }
 
 CheckForUpdates() {
+    tooltip("Checking for updates...", 100, 100)
+    Sleep Random(500, 1000)
+
     ; --- Configure your URLs here ---
-    CurrentVersion := "1.2" ; Your script's current version
+    CurrentVersion := "1.1" ; Your script's current version
     VersionFileURL := "https://github.com/yl-loaf/Circle-Grinding-Incremental/blob/main/version.txt"
     NewScriptURL   := "https://github.com/yl-loaf/Circle-Grinding-Incremental/blob/main/cgi_minigame_macro.ahk"
     
@@ -266,20 +269,4 @@ Esc:: {
     ToolTip("Exiting app...", 100, 100)
     Sleep Random(1500, 3000)
     ExitApp
-}
-
-Tab:: {
-    global AutoClickingTrue
-    global nump
-    AutoClickingTrue := false
-    if AutoClickingTrue {
-        AutoClickingTrue := false
-        nump := false
-    }
-    else{
-        nump := true
-        While nump
-        Click("Left")
-        Sleep 1
-    }
 }
