@@ -177,39 +177,41 @@ F4:: {
 }
 
 CheckForUpdates() {
-    tooltip("Checking for updates...", 100, 100)
-    Sleep Random(500, 1000)
-
-    ; --- Configure your URLs here ---
-    CurrentVersion := "1.1" ; Your script's current version
+    ; --- Configuration ---
+    CurrentVersion := "1.1" ; Your current script version
     VersionFileURL := "https://raw.githubusercontent.com/yl-loaf/Circle-Grinding-Incremental/main/version.txt"
-    NewScriptURL   := "https://github.com/yl-loaf/Circle-Grinding-Incremental/blob/main/cgi_minigame_macro.ahk"
-    
+    NewScriptURL   := "https://raw.githubusercontent.com/yl-loaf/Circle-Grinding-Incremental/main/cgi_minigame_macro.ahk"
+
     try {
-        ; Create an HTTP request object
-        whr := ComObject("WinHttp.WinHttpRequest.5.1")
-        whr.Open("GET", VersionFileURL)
-        whr.Send()
-        whr.WaitForResponse()
-        
-        LatestVersion := Trim(whr.ResponseText)
-        
+        ; --- Step 1: Fetch the latest version number ---
+        httpReq := ComObject("WinHttp.WinHttpRequest.5.1")
+        httpReq.Open("GET", VersionFileURL)
+        httpReq.Send()
+        LatestVersion := Trim(httpReq.ResponseText)
+        ; --- Step 2: Compare versions and prompt user ---
         if (CurrentVersion != LatestVersion) {
-            result := MsgBox("A new version v" LatestVersion " is available. Would you like to update?", "Update Available", "Yes/No")
-            if (result = "Yes")
-       {
-    if Download(NewScriptURL, A_ScriptDir "\YourMacro_" LatestVersion ".ahk")
-    {
-        MsgBox("Update downloaded successfully! New file saved as YourMacro_" LatestVersion ".ahk")
-    }
-    else
-    {
-        MsgBox("Download failed!")
-    }
-}
+            ; Use the function-style MsgBox and store the result
+            userChoice := MsgBox("A new version (v" LatestVersion ") is available. Would you like to update?", "Update Available", "Yes/No")
+            
+            if (userChoice = "Yes") {
+                ; --- Step 3: Download the update ---
+                ; Use the standard 'Download' function and check its return value
+                wasSuccessful := Download(NewScriptURL, A_ScriptDir "\cgi_minigame_macro_" LatestVersion ".ahk")
+                
+                if wasSuccessful {
+                    MsgBox("Update downloaded successfully! New file saved as cgi_minigame_macro_" LatestVersion ".ahk")
+                } else {
+                    MsgBox("Download failed. Please check your connection and try again.")
+                }
+            }
+        } else {
+            MsgBox("You are already on the latest version (v" CurrentVersion ").")
         }
+    } catch as e {
+        MsgBox("Could not check for updates. Error: " e.Message)
     }
 }
+
 
 
 ClickGreenPixels() {
