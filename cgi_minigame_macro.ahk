@@ -182,7 +182,7 @@ CheckForUpdates() {
 
     ; --- Configure your URLs here ---
     CurrentVersion := "1.1" ; Your script's current version
-    VersionFileURL := "https://github.com/yl-loaf/Circle-Grinding-Incremental/blob/main/version.txt"
+    VersionFileURL := "https://raw.githubusercontent.com/yl-loaf/Circle-Grinding-Incremental/main/version.txt"
     NewScriptURL   := "https://github.com/yl-loaf/Circle-Grinding-Incremental/blob/main/cgi_minigame_macro.ahk"
     
     try {
